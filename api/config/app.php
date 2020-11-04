@@ -166,6 +166,8 @@ return [
          * Package Service Providers...
          */
         Flugg\Responder\ResponderServiceProvider::class,
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
 
         /*
          * Application Service Providers...
