@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthenticationController;
+use App\Http\Controllers\Api\UsersController;
+use App\Http\Controllers\Api\UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +21,9 @@ Route::post('/register', [AuthenticationController::class, 'register']);
 
 Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('/logout', [AuthenticationController::class, 'logout']);
+    Route::apiResource('/users', UsersController::class)
+        ->only(['index', 'show']);
+    Route::get('/user-profile', [UserProfileController::class, 'index']);
+    Route::put('/user-profile', [UserProfileController::class, 'update']);
+    Route::delete('/user-profile', [UserProfileController::class, 'destroy']);
 });
