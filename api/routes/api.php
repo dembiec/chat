@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\AuthenticationController;
 use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\UserProfileController;
+use App\Http\Controllers\Api\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('/user-profile', [UserProfileController::class, 'index']);
     Route::put('/user-profile', [UserProfileController::class, 'update']);
     Route::delete('/user-profile', [UserProfileController::class, 'destroy']);
+    Route::apiResource('/messages', MessageController::class)
+        ->only(['store', 'show']);
 });
