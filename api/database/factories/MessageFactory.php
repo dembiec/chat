@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Message;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 
-class UserFactory extends Factory
+class MessageFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Message::class;
 
     /**
      * Define the model's default state.
@@ -23,10 +23,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstName,
-            'surname' => $this->faker->lastName,
-            'email' => $this->faker->unique()->safeEmail,
-            'password' => Hash::make('password')
+            'sender_id' => $this->faker->numberBetween(1, 50),
+            'recipient_id' => $this->faker->numberBetween(1, 50),
+            'message' => Crypt::encrypt($this->faker->realText(15))
         ];
     }
 }
