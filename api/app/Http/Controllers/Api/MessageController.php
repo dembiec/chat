@@ -5,15 +5,22 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMessageRequest AS SMRequest;
 use App\Models\Message;
-use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Database\QueryException;
 
 class MessageController extends Controller
 {
     public function store(SMRequest $request)
     {
+        if (Auth::id() == $request->recipientId) {
+            return responder()
+                ->error(
+                    null,
+                    'You cannot send a message to yourself'
+                )->respond(400);
+        }
+
         try {
             Message::create([
                 'sender_id' => Auth::id(),
@@ -30,10 +37,9 @@ class MessageController extends Controller
     public function show($id)
     {
         try {
-            $messages = Message::where('sender_id', Auth::id())
-                ->where('recipient_id', $id)
-                ->Orwhere('sender_id', $id)
-                ->Orwhere('recipient_id', Auth::id())
+            $messages = Message::whereIn('sender_id', [Auth::id(), $id])
+                ->whereIn('recipient_id', [$id, Auth::id()])
+                ->whereColumn('sender_id', '<>', 'recipient_id')
                 ->orderBy('sent_at', 'asc')
                 ->paginate(50)
                 ->setPageName('more');
