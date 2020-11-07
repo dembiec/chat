@@ -20,7 +20,7 @@ class UserProfileController extends Controller
     {
         try {
             if ($request->has('password')) {
-                $updatedData = $request->except(['password']) + ['password' => Hash::make($request->password)];
+                $updatedData = $request->except(['password']) + ['password' => Hash::make(htmlspecialchars($request->password))];
             } else {
                 $updatedData = $request->validated();
             }
