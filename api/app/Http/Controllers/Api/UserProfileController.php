@@ -30,7 +30,13 @@ class UserProfileController extends Controller
 
             return responder()->success()->respond();
         } catch (QueryException $e) {
-            return responder()->error()->respond();
+            return responder()
+                ->error()
+                ->data([
+                    'message' => [
+                        'unexpectedError' => ['An unexpected server error has occurred.']
+                    ]
+                ])->respond();
         }
     }
 
@@ -40,7 +46,13 @@ class UserProfileController extends Controller
             User::findOrFail(Auth::id())->delete();
             return responder()->success()->respond();
         } catch (QueryException $e) {
-            return responder()-error()->respond();
+            return responder()
+                ->error()
+                ->data([
+                    'message' => [
+                        'unexpectedError' => ['An unexpected server error has occurred.']
+                    ]
+                ])->respond();
         }
     }
 }

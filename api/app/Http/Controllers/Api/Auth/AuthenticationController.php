@@ -18,10 +18,12 @@ class AuthenticationController extends Controller
     {
         if (!$token = JWTAuth::attempt($request->validated())) {
             return responder()
-                ->error(
-                    null,
-                    'Incorrect email or password.'
-                )->respond(401);
+                ->error()
+                ->data([
+                    'message' => [
+                        'authorization' => ['Incorrect email or password.']
+                    ]
+                ])->respond(401);
         }
 
         $user = Auth::user();
@@ -40,7 +42,13 @@ class AuthenticationController extends Controller
             JWTAuth::invalidate(JWTAuth::getToken());
             return responder()->success()->respond();
         } catch (JWTException $e) {
-            return responder()->error(null, $e->getMessage())->respond(400);
+            return responder()
+                ->error()
+                ->data([
+                    'message' => [
+                        'authorization' => [$e->getMessage()]
+                    ]
+                ])->respond(400);
         }
 
     }
@@ -56,11 +64,12 @@ class AuthenticationController extends Controller
             return responder()->success()->respond();
         } catch (QueryException $e) {
             return responder()
-                ->error(
-                    null,
-                    'An unexpected server error has occurred.'
-                )
-                ->respond();
+                ->error()
+                ->data([
+                    'message' => [
+                        'unexpectedError' => ['An unexpected server error has occurred.']
+                    ]
+                ])->respond();
         }
     }
 }

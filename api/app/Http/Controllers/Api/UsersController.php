@@ -14,10 +14,12 @@ class UsersController extends Controller
 
         if ($users->isEmpty()) {
             return responder()
-                ->error(
-                    null,
-                    'Users not found'
-                )->respond(404);
+                ->error()
+                ->data([
+                    'message' => [
+                        'user' => ['Users not found.']
+                    ]
+                ])->respond(404);
         }
 
         return responder()->success($users)->respond();
@@ -31,10 +33,12 @@ class UsersController extends Controller
 
         if ($search->isEmpty()) {
             return responder()
-                ->error(
-                    null,
-                    'User not found'
-                )->respond(404);
+                ->error()
+                ->data([
+                    'message' => [
+                        'user' => ['Users not found.']
+                    ]
+                ])->respond(404);
         }
 
         return responder()->success($search)->respond();

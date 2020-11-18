@@ -15,10 +15,12 @@ class MessageController extends Controller
     {
         if (Auth::id() == $request->recipientId) {
             return responder()
-                ->error(
-                    null,
-                    'You cannot send a message to yourself'
-                )->respond(400);
+                ->error()
+                ->data([
+                    'message' => [
+                        'authorization' => ['You cannot send a message to yourself.']
+                    ]
+                ])->respond(400);
         }
 
         try {
@@ -30,7 +32,13 @@ class MessageController extends Controller
 
             return responder()->success()->respond();
         } catch (QueryException $e) {
-            return responder()->error(null, 'Internal server error')->respond();
+            return responder()
+                ->error()
+                ->data([
+                    'message' => [
+                        'unexpectedError' => ['Internal server error.']
+                    ]
+                ])->respond();
         }
     }
 
@@ -59,7 +67,13 @@ class MessageController extends Controller
                     'loadMore' => $messages->nextPageUrl()
                 ])->respond();
         } catch (QueryException $e) {
-            return responder()->error()->respond();
+            return responder()
+                ->error()
+                ->data([
+                    'message' => [
+                        'unexpectedError' => ['An unexpected server error has occurred.']
+                    ]
+                ])->respond();
         }
     }
 }
