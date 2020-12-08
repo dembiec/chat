@@ -17,3 +17,7 @@ body {
 .custom-scroll {
     margin-right: 2px;
 }
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+    background-color: #718096;
+}

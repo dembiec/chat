@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ErrorList from "../helpers/errorList";
-import Api from "../helpers/api";
+import Api, {JWTtoken} from "../helpers/api";
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 
@@ -8,11 +8,12 @@ class UserList extends Component
 {
   state = {
     users: {},
-    errors: {},
+    errors: {}
   }
 
   componentDidMount() {
-    Api.get('/users')
+    JWTtoken(sessionStorage.getItem("token"));
+    Api.get("/users")
     .then(response => {
       this.setState({users: response.data.data});
     }).catch(error => {
@@ -26,8 +27,15 @@ class UserList extends Component
 
   render() 
   {
-    const data = Object.values(this.state.users);
+    if(this.state.errors.length > 0) {
+      return (
+        <div className="w-full h-auto px-8 py-4">
+          <ErrorList set={this.state.errors} />
+        </div>
+      );
+    }
 
+    const data = Object.values(this.state.users);
     return (
       <div className="w-full h-full py-4">
         <SimpleBar className="h-custom2 custom-scroll">

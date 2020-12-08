@@ -21938,6 +21938,10 @@ body {
   margin-right: 2px;
 }
 
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+  background-color: #718096;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
