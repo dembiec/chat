@@ -28,9 +28,9 @@ class Login extends Component
     Api.post('/login', this.state.data)
     .then(response => {
       const data = response.data.data;
-      localStorage.setItem("token", data.token);
+      sessionStorage.setItem("token", data.token);
       delete data.token;
-      localStorage.setItem("user", JSON.stringify(data));
+      sessionStorage.setItem("user", JSON.stringify(data));
 
       this.props.history.push("/");
     }).catch(error => {

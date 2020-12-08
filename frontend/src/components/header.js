@@ -5,7 +5,7 @@ class Header extends Component
 {
   render() 
   {
-    const data = JSON.parse(localStorage.user);
+    const data = JSON.parse(sessionStorage.getItem("user"));
 
     return (
       <ul className="flex flex-row justify-end items-center">
