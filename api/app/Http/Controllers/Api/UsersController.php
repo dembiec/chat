@@ -29,7 +29,7 @@ class UsersController extends Controller
     {
         $search = User::where('id', '<>', Auth::id())
             ->whereRaw("CONCAT(name, ' ', surname) LIKE '%".htmlspecialchars($user)."%'")
-            ->get();
+            ->paginate(20);
 
         if ($search->isEmpty()) {
             return responder()
