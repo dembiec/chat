@@ -1,7 +1,44 @@
 import React, {Component} from 'react';
+import debounce from 'lodash.debounce';
+import Api, {JWTtoken} from "../../helpers/api";
 
-class UserSearch extends Component
+class SearchEngine extends Component
 {
+  state = {
+    search: ""
+  }
+
+  saveData = (e) => {
+    if (e.target.value.length > 0) {
+      this.setState({search: e.target.value});
+      this.props.setErrors({}); 
+    } else {
+      this.clearData();
+    }
+  }
+  
+  clearData = () => {
+    this.setState({search: ""});
+    this.props.setUsers({});
+    this.props.setErrors({});
+  }
+
+  searchUser = debounce(() => {
+    if(this.state.search.length > 0) {
+      JWTtoken(sessionStorage.getItem("token"));
+      Api.get(`/users/${this.state.search}`)
+      .then(response => {
+        this.props.setUsers(response.data.data);
+      }).catch(error => {
+        try {
+          this.props.setErrors(error.response.data.error.message);
+        } catch (errorMsg) {
+          this.props.setErrors([error.response.statusText.split()]);
+        }
+      });
+    }
+  }, 500);
+
   render() 
   {
     return (
@@ -19,10 +56,14 @@ class UserSearch extends Component
           placeholder="Search..."
           autoComplete="off"
           name="search"
+          value={this.state.search}
+          onChange={(e) => {this.saveData(e); this.searchUser();}}
         />
         <button 
           type="button"
           className="w-auto h-auto p-1 focus:outline-none text-gray-600 hover:text-purple"
+          style={(this.state.search === "") ? {display: "none"} : {display: "block"}}
+          onClick={this.clearData}
         >
           <svg
             className="w-3 h-3 fill-current"
@@ -37,4 +78,4 @@ class UserSearch extends Component
   }
 }
 
-export default UserSearch;
+export default SearchEngine;

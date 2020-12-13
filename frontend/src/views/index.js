@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import Header from "../components/header";
-import UserSearch from "../components/userSearch";
-import UserList from "../components/userList";
+import LeftBar from "../components/leftBar";
 
 class Index extends Component
 {
     render() 
-    { 
+    {
         return (
             <div className="flex flex-wrap w-full h-full justify-start">
                 {/* Start - Header */}
@@ -30,8 +29,7 @@ class Index extends Component
                 {/* End - Header */}
                 {/* Start - Left panel */}
                 <div className="w-1/3 h-custom border-r border-gray2">
-                    <UserSearch />
-                    <UserList />
+                    <LeftBar />
                 </div>
                 {/* End - Left panel */}
             </div>
