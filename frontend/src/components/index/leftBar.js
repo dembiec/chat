@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import SearchEngine from "../components/leftBar/searchEngine";
-import ErrorList from "../components/errorList";
-import UserList from "../components/leftBar/userList";
+import SearchEngine from "../leftBar/searchEngine";
+import ErrorList from "../errorList";
+import UserList from "../leftBar/userList";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import Pagination from "react-js-pagination";

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Header from "../components/header";
-import LeftBar from "../components/leftBar";
+import Header from "../components/index/header";
+import LeftBar from "../components/index/leftBar";
 
 class Index extends Component
 {
