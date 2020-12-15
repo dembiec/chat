@@ -11,24 +11,28 @@ class SearchEngine extends Component
   saveData = (e) => {
     if (e.target.value.length > 0) {
       this.setState({search: e.target.value});
-      this.props.setErrors({}); 
     } else {
       this.clearData();
     }
   }
-  
+
   clearData = () => {
     this.setState({search: ""});
     this.props.setUsers({});
+    this.props.setPagination({});
+    this.props.setPaginationPage(1);
     this.props.setErrors({});
   }
 
-  searchUser = debounce(() => {
+  searchUser = () => {
     if(this.state.search.length > 0) {
       JWTtoken(sessionStorage.getItem("token"));
-      Api.get(`/users/${this.state.search}`)
+      Api.get(`/users/${this.state.search}?page=${this.props.page}`)
       .then(response => {
         this.props.setUsers(response.data.data);
+        if (response.data.pagination.totalPages > 1) {
+          this.props.setPagination(response.data.pagination);
+        }
       }).catch(error => {
         try {
           this.props.setErrors(error.response.data.error.message);
@@ -37,7 +41,16 @@ class SearchEngine extends Component
         }
       });
     }
-  }, 500);
+  }
+
+  searchUserLate = debounce(this.searchUser, 500);
+  
+  componentDidUpdate(e)
+  {
+    if (e.page !== this.props.page) {
+      this.searchUser();
+    }
+  }
 
   render() 
   {
@@ -57,7 +70,7 @@ class SearchEngine extends Component
           autoComplete="off"
           name="search"
           value={this.state.search}
-          onChange={(e) => {this.saveData(e); this.searchUser();}}
+          onChange={(e) => {this.saveData(e); this.searchUserLate();}}
         />
         <button 
           type="button"
