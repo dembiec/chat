@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ErrorList from "../helpers/errorList";
+import ErrorList from "../components/errorList";
 import Login from "../components/authentication/login";
 import Register from "../components/authentication/register";
 

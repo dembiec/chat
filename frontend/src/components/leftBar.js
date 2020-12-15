@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SearchEngine from "../components/leftBar/searchEngine";
-import ErrorList from "../helpers/errorList";
+import ErrorList from "../components/errorList";
 import UserList from "../components/leftBar/userList";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
