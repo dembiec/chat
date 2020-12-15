@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ErrorList from "../helpers/errorList";
-import Login from "../components/login";
-import Register from "../components/register";
+import Login from "../components/authentication/login";
+import Register from "../components/authentication/register";
 
 class Authentication extends Component
 {

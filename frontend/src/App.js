@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Authentication from "./views/authentication";
-import Logout from "./components/logout";
+import Logout from "./components/authentication/logout";
 import Index from "./views/index";
 
 class App extends Component

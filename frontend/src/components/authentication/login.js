@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import Api from "../helpers/api";
+import Api from "../../helpers/api";
 
-class Register extends Component
+class Login extends Component
 {
   state = {
     data: {
-      name: "",
-      surname: "",
       email: "",
       password: ""
     }
@@ -22,14 +20,19 @@ class Register extends Component
   authenticate = () => {
     const input = this.state.data;
 
-    if (input.name === "" || input.surname === "" || input.email === "" || input.password === "") {
+    if (input.email === "" || input.password === "") {
       this.props.setErrors(["All fields are required.".split()]);
       return false;
     }
 
-    Api.post('/register', this.state.data)
+    Api.post('/login', this.state.data)
     .then(response => {
-      this.props.history.push("/login");
+      const data = response.data.data;
+      sessionStorage.setItem("token", data.token);
+      delete data.token;
+      sessionStorage.setItem("user", JSON.stringify(data));
+
+      this.props.history.push("/");
     }).catch(error => {
       try {
         this.props.setErrors(error.response.data.error.message);
@@ -45,24 +48,6 @@ class Register extends Component
       <form 
         className="flex flex-col items-center"
       >
-        <div className="w-full h-auto grid gap-x-4 md:grid-cols-2">
-          <input 
-            className="w-full h-12 my-2 p-3 outline-none rounded-sm border border-gray2 bg-gray1 text-gray-600"
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={this.state.data.name}
-            onChange={this.saveData}
-          />
-          <input 
-            className="w-full h-12 my-2 p-3 outline-none rounded-sm border border-gray2 bg-gray1 text-gray-600"
-            type="text"
-            name="surname"
-            placeholder="Surname"
-            value={this.state.data.surname}
-            onChange={this.saveData}
-          />
-        </div>
         <input 
           className="w-full h-12 my-2 p-3 outline-none rounded-sm border border-gray2 bg-gray1 text-gray-600"
           type="text"
@@ -84,14 +69,14 @@ class Register extends Component
           className="w-11/12 h-12 mt-5 p-3 focus:outline-none rounded-md bg-purple font-medium text-white transition duration-100 ease-in-out transform hover:opacity-75"
           onClick={this.authenticate}
         >
-          Register
+          Log in
         </button>
         <span className="mt-2 font-medium text-gray-500">
-          or <Link className="hover:underline" to="/login">Log in</Link>
+          or <Link className="hover:underline" to="/register">Register</Link>
         </span>
       </form>
     );
   }
 }
 
-export default Register;
+export default Login;
