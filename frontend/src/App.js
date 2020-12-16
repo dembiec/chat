@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import PrivateRoute from "../src/helpers/privateRoute";
 import Authentication from "./views/authentication";
 import Logout from "./components/authentication/logout";
 import Index from "./views/index";
@@ -14,8 +15,8 @@ class App extends Component
             <Switch>
               <Route exact path="/login" component={Authentication} />
               <Route exact path="/register" component={Authentication} />
-              <Route exact path="/logout" component={Logout} />
-              <Route exact path="/" component={Index} />
+              <PrivateRoute exact path="/logout" component={Logout} redirectTo="/login" />
+              <PrivateRoute exact path="/" component={Index} redirectTo="/login" />
             </Switch>
           </div>
         </div>
