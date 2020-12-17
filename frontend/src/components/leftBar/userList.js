@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import Api, {JWTtoken} from "../../helpers/api";
+import ChatContext from "../../helpers/chatContext";
 
 class UserList extends Component
 {
   state = {
-    users: {}
+    users: {},
+    tmp: ""
   }
 
   componentDidMount() 
@@ -22,16 +24,24 @@ class UserList extends Component
     });
   }
 
+  static contextType = ChatContext;
+
   render() 
   {
     const data = Object.values(
       Object.values(this.props.users).length > 0 ? this.props.users : this.state.users
     );
 
+    const {setRecipientId} = this.context;
+
     return (
       <ul>
         {data.map(user => 
-          <li key={user.id} className="py-3 px-8 cursor-pointer hover:bg-white1">
+          <li 
+            key={user.id} 
+            className="py-3 px-8 cursor-pointer hover:bg-white1"
+            onClick={() => {setRecipientId(user.id)}}
+          >
             <div className="flex flex-wrap justify-center w-full h-auto">
               <div className="w-1/6 h-full">
                 <img

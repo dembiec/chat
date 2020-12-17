@@ -21934,6 +21934,10 @@ body {
   height: calc(100% - 3rem);
 }
 
+.h-custom3 {
+  height: calc(100% - 4rem);
+}
+
 .custom-scroll {
   margin-right: 2px;
 }
