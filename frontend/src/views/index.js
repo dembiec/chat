@@ -1,9 +1,20 @@
 import React, {Component} from 'react';
 import Header from "../components/index/header";
 import LeftBar from "../components/index/leftBar";
+import RightBar from "../components/index/rightBar";
+
+import ChatContext from "../helpers/chatContext";
 
 class Index extends Component
 {
+    state = {
+        recipientId: null
+    }
+
+    setRecipientId = (id) => {
+        this.setState({recipientId: id});
+    }  
+
     render() 
     {
         return (
@@ -28,10 +39,17 @@ class Index extends Component
                 </div>
                 {/* End - Header */}
                 {/* Start - Left panel */}
+                <ChatContext.Provider value={{recipientId: this.state.recipientId , setRecipientId: this.setRecipientId}}>
                 <div className="w-1/3 h-custom border-r border-gray2">
                     <LeftBar />
                 </div>
                 {/* End - Left panel */}
+                {/* Start - Right panel */}
+                <div className="w-2/3 h-custom ">
+                    <RightBar />
+                </div>
+                </ChatContext.Provider>
+                {/* End - Right panel */}
             </div>
         );
     }
