@@ -24,7 +24,7 @@ class TextBox extends Component
 
     SendMessage = () => {
         const {recipientId} = this.context;
-
+        
         JWTtoken(sessionStorage.getItem("token"));
         Api.post('/messages', {recipientId: recipientId, message: this.state.message})
         .then(response => {
@@ -43,7 +43,7 @@ class TextBox extends Component
         return (
             <div className="flex flex-row justify-center w-full h-16 bg-gray1">
                 <input
-                    className="w-full h-full focus:outline-none p-8 antialiased text-sm font-medium placeholder-gray-500 text-gray-600 bg-gray1"
+                    className="w-full h-full focus:outline-none p-8 antialiased text-base placeholder-gray-500 text-gray-600 bg-gray1"
                     type="text"
                     placeholder="Write a message..."
                     autoComplete="off"
