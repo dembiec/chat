@@ -8,12 +8,19 @@ import ChatContext from "../helpers/chatContext";
 class Index extends Component
 {
     state = {
-        recipientId: null
+        recipientId: null,
+        recipientName: "",
+        recipientSurname: ""
     }
 
     setRecipientId = (id) => {
         this.setState({recipientId: id});
-    }  
+    }
+    
+    setRecipientData = (name, surname) => {
+        this.setState({recipientName: name});
+        this.setState({recipientSurname: surname});
+    } 
 
     render() 
     {
@@ -39,7 +46,15 @@ class Index extends Component
                 </div>
                 {/* End - Header */}
                 {/* Start - Left panel */}
-                <ChatContext.Provider value={{recipientId: this.state.recipientId , setRecipientId: this.setRecipientId}}>
+                <ChatContext.Provider value={
+                    {
+                        recipientId: this.state.recipientId ,
+                        setRecipientId: this.setRecipientId,
+                        recipientName: this.state.recipientName,
+                        recipientSurname: this.state.recipientSurname,
+                        setRecipientData: this.setRecipientData
+                    }
+                }>
                 <div className="w-1/3 h-custom border-r border-gray2">
                     <LeftBar />
                 </div>
