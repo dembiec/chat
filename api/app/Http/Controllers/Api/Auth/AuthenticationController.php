@@ -30,6 +30,7 @@ class AuthenticationController extends Controller
         return responder()
             ->success([
                 'token' => $token,
+                'id' => $user->id,
                 'name' => $user->name,
                 'surname' => $user->surname,
                 'email' => $user->email
