@@ -31,4 +31,4 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::delete('/user-profile', [UserProfileController::class, 'destroy']);
     Route::apiResource('/messages', MessageController::class)
         ->only(['store', 'show']);
-});
+    });
