@@ -9,7 +9,7 @@ class Header extends Component
 
     return (
       <ul className="flex flex-row justify-end items-center">
-        <li className="px-3">
+        <li className="lg:px-3 md:px-2">
           <img
             className="w-12 h-12 rounded-full" 
             src={`https://avatars.dicebear.com/api/initials/${data.name}-${data.surname}.svg?fontSize=40`}  
@@ -20,7 +20,7 @@ class Header extends Component
             {data.name} {data.surname}
           </Link>
         </li>
-        <li className="px-3 pr-0">
+        <li className="lg:pl-3 md:pl-2 pr-0">
           <Link to="/logout">
             <svg
               className="w-5 h-5 fill-current text-gray-500 transition duration-100 ease-in-out transform hover:text-gray-600" 

@@ -10,8 +10,8 @@ class App extends Component
   render() {
     return (
       <Router>
-        <div className="flex flex-wrap justify-center w-screen h-screen py-20">
-          <div className="w-8/12 h-auto max-h-full rounded-sm shadow-xl bg-white">
+        <div className="flex flex-wrap justify-center w-screen h-screen md:py-20 sm:py-0">
+          <div className="w-full xl:w-8/12 md:h-auto sm:h-full max-h-full rounded-sm shadow-xl bg-white">
             <Switch>
               <Route exact path="/login" component={Authentication} />
               <Route exact path="/register" component={Authentication} />

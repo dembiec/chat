@@ -35,6 +35,7 @@ class UserList extends Component
     const {setRecipientId} = this.context;
     const {setRecipientData} = this.context;
     const {recipientId} = this.context;
+    const {setStatus} = this.context;
 
     return (
       <ul>
@@ -42,7 +43,7 @@ class UserList extends Component
           <li 
             key={user.id} 
             className={`py-3 px-8 cursor-pointer ${user.id === recipientId ? 'bg-white1' : 'hover:bg-white1'}`}
-            onClick={() => {setRecipientId(user.id); setRecipientData(user.name, user.surname);}}
+            onClick={() => {setRecipientId(user.id); setRecipientData(user.name, user.surname); setStatus();}}
           >
             <div className="flex flex-wrap justify-center w-full h-auto">
               <div className="w-1/6 h-full">
