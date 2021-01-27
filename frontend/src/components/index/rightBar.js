@@ -1,16 +1,17 @@
 import React, {Component, Fragment} from 'react';
 import ChatContext from "../../helpers/chatContext";
+import MessageBox from "../rightBar/messageBox";
 import UserBox from "../rightBar/userBox";
 import TextBox from "../rightBar/textBox";
 
 class RightBar extends Component
 {
   state = {
-    errors: {}
+    message: ""
   }
 
-  setErrors = (errors) => {
-    this.setState({errors: errors});
+  setMessage = (message) => {
+    this.setState({message: message});
   }
 
   static contextType = ChatContext;
@@ -23,7 +24,10 @@ class RightBar extends Component
       return (
         <div className="w-full h-full">
           <UserBox />
-          <TextBox setErrors={this.setErrors} />
+          <div className="w-full h-custom3 pb-2">
+            <MessageBox setMessage={this.setMessage} senderMessage={this.state.message} />
+          </div>
+          <TextBox setMessage={this.setMessage} />
         </div>
       ); 
     }
