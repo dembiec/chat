@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Api, {JWTtoken} from "../../helpers/api";
 import ChatContext from "../../helpers/chatContext";
+import ErrorList from "../errorList";
 
 class TextBox extends Component
 {
@@ -20,22 +21,27 @@ class TextBox extends Component
         this.setState({message: ""});
     }
 
+    clickEnter = (e) => {
+        if (e.charCode === 13) {
+            this.sendMessage();
+        }
+    }
+
     static contextType = ChatContext;
 
-    SendMessage = () => {
-        const {recipientId} = this.context;
+    sendMessage = () => {
+        if (this.state.message.length > 0) {
+            const {recipientId} = this.context;
         
-        JWTtoken(sessionStorage.getItem("token"));
-        Api.post('/messages', {recipientId: recipientId, message: this.state.message})
-        .then(response => {
-            this.clearData();
-        }).catch(error => {
-            try {
-                this.props.setErrors(error.response.data.error.message);
-            } catch (errorMsg) {
-                this.props.setErrors([error.response.statusText.split()]);
-            }
-        });
+            JWTtoken(sessionStorage.getItem("token"));
+            Api.post('/messages', {recipientId: recipientId, message: this.state.message})
+            .then(response => {
+                this.props.setMessage(this.state.message);
+                this.clearData();
+            }).catch(() => {
+                this.props.setMessage(<ErrorList set={["An error occurred while sending a message.".split()]} />);
+            });   
+        }
     }
 
     render() 
@@ -50,8 +56,9 @@ class TextBox extends Component
                     name="message"
                     value={this.state.message}
                     onChange={this.saveData}
+                    onKeyPress={this.clickEnter}
                 />
-                <button className="w-auto h-full pr-8 py-4 focus:outline-none bg-gray1" onClick={this.SendMessage}>
+                <button className="w-auto h-full pr-8 py-4 focus:outline-none bg-gray1" onClick={this.sendMessage}>
                     <svg 
                         className="w-8 h-8 text-gray-500 hover:text-gray-400 fill-current origin-top transform -rotate-45" 
                         xmlns="http://www.w3.org/2000/svg" 
