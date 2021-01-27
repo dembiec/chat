@@ -22,6 +22,7 @@ Route::post('/login', [AuthenticationController::class, 'login']);
 Route::post('/register', [AuthenticationController::class, 'register']);
 
 Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::get('/refresh', [AuthenticationController::class, 'refresh']);
     Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::apiResource('/users', UsersController::class)
         ->only(['index', 'show']);

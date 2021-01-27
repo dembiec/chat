@@ -37,6 +37,25 @@ class AuthenticationController extends Controller
             ])->respond();
     }
 
+    public function refresh()
+    {
+        try {
+            $token = JWTAuth::refresh(JWTAuth::getToken());
+            return responder()
+            ->success([
+                'token' => $token
+            ])->respond();
+        } catch (JWTException $e) {
+            return responder()
+                ->error()
+                ->data([
+                    'message' => [
+                        'authorization' => [$e->getMessage()]
+                    ]
+                ])->respond(400);
+        }
+    }
+
     public function logout()
     {
         try {
@@ -51,7 +70,6 @@ class AuthenticationController extends Controller
                     ]
                 ])->respond(400);
         }
-
     }
 
     public function register(RegisterRequest $request)
