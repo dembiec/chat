@@ -3,6 +3,7 @@ import Header from "../components/index/header";
 import LeftBar from "../components/index/leftBar";
 import RightBar from "../components/index/rightBar";
 import ChatContext from "../helpers/chatContext";
+import RefreshToken from "../helpers/refreshToken";
 
 class Index extends Component
 {
@@ -45,6 +46,8 @@ class Index extends Component
 
     componentDidMount()
     {
+        RefreshToken();
+
         this.device();
         window.addEventListener("resize", this.device);
     }

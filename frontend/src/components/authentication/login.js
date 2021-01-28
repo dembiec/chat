@@ -31,6 +31,7 @@ class Login extends Component
       sessionStorage.setItem("token", data.token);
       delete data.token;
       sessionStorage.setItem("user", JSON.stringify(data));
+      sessionStorage.setItem("time", new Date().getTime() + (55 * 60 * 1000));
 
       this.props.history.push("/");
     }).catch(error => {
