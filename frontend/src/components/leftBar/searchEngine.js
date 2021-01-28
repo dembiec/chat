@@ -11,6 +11,8 @@ class SearchEngine extends Component
   saveData = (e) => {
     if (e.target.value.length > 0) {
       this.setState({search: e.target.value});
+      this.props.setErrors({});
+      console.log(e.target.value);
     } else {
       this.clearData();
     }
@@ -43,7 +45,7 @@ class SearchEngine extends Component
     }
   }
 
-  searchUserLate = debounce(this.searchUser, 500);
+  searchUserLate = debounce(this.searchUser, 300);
   
   componentDidUpdate(e)
   {
@@ -74,7 +76,7 @@ class SearchEngine extends Component
         />
         <button 
           type="button"
-          className="w-auto h-auto p-1 focus:outline-none text-gray-600 hover:text-purple"
+          className="w-auto h-auto p-1 focus:outline-none text-gray-500 hover:text-gray-600"
           style={(this.state.search === "") ? {display: "none"} : {display: "block"}}
           onClick={this.clearData}
         >
