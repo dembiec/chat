@@ -3,6 +3,14 @@ import {Link} from "react-router-dom";
 
 class Header extends Component
 {
+  state ={
+    style: "hidden"
+  }
+
+  expand = () => {
+    this.setState({style: this.state.style === "hidden" ? "block" : "hidden"});
+  }
+
   render() 
   {
     const data = JSON.parse(sessionStorage.getItem("user"));
@@ -21,15 +29,43 @@ class Header extends Component
           </Link>
         </li>
         <li className="lg:pl-3 md:pl-2 pr-0">
-          <Link to="/logout">
-            <svg
-              className="w-5 h-5 fill-current text-gray-500 transition duration-100 ease-in-out transform hover:text-gray-600" 
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 511 512"
-            >
-              <path d="m361.5 392v40c0 44.113281-35.886719 80-80 80h-201c-44.113281 0-80-35.886719-80-80v-352c0-44.113281 35.886719-80 80-80h201c44.113281 0 80 35.886719 80 80v40c0 11.046875-8.953125 20-20 20s-20-8.953125-20-20v-40c0-22.054688-17.945312-40-40-40h-201c-22.054688 0-40 17.945312-40 40v352c0 22.054688 17.945312 40 40 40h201c22.054688 0 40-17.945312 40-40v-40c0-11.046875 8.953125-20 20-20s20 8.953125 20 20zm136.355469-170.355469-44.785157-44.785156c-7.8125-7.8125-20.476562-7.8125-28.285156 0-7.8125 7.808594-7.8125 20.472656 0 28.28125l31.855469 31.859375h-240.140625c-11.046875 0-20 8.953125-20 20s8.953125 20 20 20h240.140625l-31.855469 31.859375c-7.8125 7.808594-7.8125 20.472656 0 28.28125 3.90625 3.90625 9.023438 5.859375 14.140625 5.859375 5.121094 0 10.238281-1.953125 14.144531-5.859375l44.785157-44.785156c19.496093-19.496094 19.496093-51.214844 0-70.710938zm0 0"/>
-            </svg>
-          </Link>
+          <div class="relative inline-block text-left">
+            <button 
+              type="button"
+              className="mt-2 text-sm font-medium focus:outline-none"
+              onClick={this.expand}
+              >
+              <svg 
+                className="w-5 h-5 fill-current text-gray-500 transition duration-100 ease-in-out transform hover:text-gray-600"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                >
+                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+              </svg>
+            </button>
+            <div className={`${this.state.style} origin-top-right absolute right-0 mt-3 border border-gray2 rounded-md shadow-lg bg-white z-50`}>
+              <div className="py-1">
+                <Link
+                  to="/"
+                  className="block px-8 py-2 text-sm text-gray-600 hover:bg-white1 hover:text-gray-700" 
+                >
+                  Profile
+                </Link>
+                <Link
+                  to="/"
+                  className="block px-8 py-2 text-sm text-gray-600 hover:bg-white1 hover:text-gray-700" 
+                >
+                  Settings
+                </Link>
+                <Link
+                  to="/logout"
+                  className="block px-8 py-2 text-sm text-gray-600 hover:bg-white1 hover:text-gray-700" 
+                >
+                  Log out
+                </Link>
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
     );
