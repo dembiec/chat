@@ -20,6 +20,13 @@ class MessageBox extends Component
     static contextType = ChatContext;
     pusher = WebSockets(sessionStorage.getItem("token"));
 
+    connectUsers = () => {
+        this.pusher.subscribe(`private-chat.${this.state.recipientId}.${this.state.senderId}`)
+            .bind('new-message', data => {
+                this.newMessage(this.state.recipientId, this.state.senderId, data.message);
+            });
+    }
+
     fetchMessages = (scroll = true) => {
         if (this.state.loadMore !== null) {
             const {recipientId} = this.context;
@@ -64,14 +71,6 @@ class MessageBox extends Component
         }
     }
 
-    componentDidMount()
-    {
-        this.pusher.subscribe(`private-chat.${this.state.recipientId}.${this.state.senderId}`)
-            .bind('new-message', data => {
-                this.newMessage(this.state.recipientId, this.state.senderId, data.message);
-            });
-    }
-
     componentDidUpdate()
     {
         if (this.state.previousContext !== this.context) {
@@ -83,6 +82,7 @@ class MessageBox extends Component
             });
             
             if (this.context.recipientId === this.state.recipientId) {
+                this.connectUsers();
                 this.fetchMessages();
             }
         }
