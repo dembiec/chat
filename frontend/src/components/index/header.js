@@ -21,6 +21,7 @@ class Header extends Component
           <img
             className="w-12 h-12 rounded-full" 
             src={`https://avatars.dicebear.com/api/initials/${data.name}-${data.surname}.svg?fontSize=40`}  
+            alt="profile avatar"
           />
         </li>
         <li className="px-3">
@@ -29,7 +30,7 @@ class Header extends Component
           </Link>
         </li>
         <li className="lg:pl-3 md:pl-2 pr-0">
-          <div class="relative inline-block text-left">
+          <div className="relative inline-block text-left">
             <button 
               type="button"
               className="mt-2 text-sm font-medium focus:outline-none"
