@@ -48,7 +48,7 @@ class UserList extends Component
             <div className="flex flex-wrap justify-center w-full h-auto">
               <div className="w-1/6 h-full">
                 <img
-                  className="w-12 h-12 rounded-full" 
+                  className="w-full h-full max-w-xs max-h-full rounded-full" 
                   src={`https://avatars.dicebear.com/api/initials/${user.name}-${user.surname}.svg?fontSize=40`}  
                   alt="user placeholder"
                 />
