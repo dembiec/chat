@@ -8,18 +8,15 @@ class SearchEngine extends Component
     search: ""
   }
 
-  saveData = (e) => {
-    if (e.target.value.length > 0) {
-      this.setState({search: e.target.value});
-      this.props.setErrors({});
-      console.log(e.target.value);
-    } else {
-      this.clearData();
-    }
+  saveData = async (e) => {
+    await this.setState({search: e.target.value});
+    this.clearData();
   }
 
-  clearData = () => {
-    this.setState({search: ""});
+  clearData = (state = false) => {
+    if (state) {
+      this.setState({search: ""});
+    }
     this.props.setUsers({});
     this.props.setPagination({});
     this.props.setPaginationPage(1);
@@ -42,6 +39,8 @@ class SearchEngine extends Component
           this.props.setErrors([error.response.statusText.split()]);
         }
       });
+    } else {
+      this.clearData();
     }
   }
 
@@ -78,7 +77,7 @@ class SearchEngine extends Component
           type="button"
           className="w-auto h-auto p-1 focus:outline-none text-gray-500 hover:text-gray-600"
           style={(this.state.search === "") ? {display: "none"} : {display: "block"}}
-          onClick={this.clearData}
+          onClick={this.clearData.bind(true)}
         >
           <svg
             className="w-3 h-3 fill-current"
