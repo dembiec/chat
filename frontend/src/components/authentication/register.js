@@ -39,10 +39,17 @@ class Register extends Component
     });
   }
 
+  clickEnter = (e) => {
+    if (e.charCode === 13) {
+        this.authenticate();
+    }
+  }
+
   render() 
   { 
     return (
-      <form 
+      <form
+        onKeyPress={this.clickEnter}
         className="flex flex-col items-center"
       >
         <div className="w-full h-auto grid gap-x-4 md:grid-cols-2">

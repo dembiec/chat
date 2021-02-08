@@ -43,10 +43,17 @@ class Login extends Component
     });
   }
 
+  clickEnter = (e) => {
+    if (e.charCode === 13) {
+        this.authenticate();
+    }
+  }
+
   render() 
-  { 
+  {
     return (
-      <form 
+      <form
+        onKeyPress={this.clickEnter}
         className="flex flex-col items-center"
       >
         <input 
