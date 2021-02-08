@@ -24,8 +24,17 @@ class Authentication extends Component
         }
     }
 
-    render() 
-    { 
+    componentDidUpdate(e)
+    {
+        if (e.location.pathname !== window.location.pathname) {
+            if (Object.values(this.state.errors).length > 0) {
+                this.setErrors({});
+            }
+        }
+    }
+
+    render()   
+    {
         return (
             <div className="flex flex-col justify-center items-center w-full h-full">
                 <div className="lg:w-1/3 md:w-3/4 h-auto">
