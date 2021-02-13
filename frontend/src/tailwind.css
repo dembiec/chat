@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #f8f8f8;
+}
+
+.h-custom {
+    height: calc(100% - 5rem);
+}
+
+.h-custom2 {
+    height: calc(100% - 3rem);
+}
+
+.h-custom3 {
+    height: calc(100% - 8rem);
+}
+
+.custom-scroll {
+    margin-right: 2px;
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+    background-color: #718096;
+}
