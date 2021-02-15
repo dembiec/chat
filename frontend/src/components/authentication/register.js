@@ -34,7 +34,7 @@ class Register extends Component
       try {
         this.props.setErrors(error.response.data.error.message);
       } catch (errorMsg) {
-        this.props.setErrors([error.response.statusText.split()]);
+        this.props.setErrors(["An unexpected error has occurred, please try again in a moment.".split()]);
       }
     });
   }
